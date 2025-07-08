@@ -27,7 +27,7 @@ function nowStr() {
   return d.toISOString().replace(/[:.]/g, "-").slice(0, 19);
 }
 
-async function runTest(url, page, resultDir) {
+async function runTest(url, page, resultDir, label) {
   await page.goto("https://pagespeed.web.dev/", { timeout: 60000 });
   await page.fill('input[placeholder="Enter a web page URL"]', url);
   await page.click('button:has-text("Analyze")');
@@ -35,6 +35,7 @@ async function runTest(url, page, resultDir) {
   await page.waitForSelector(`div[id="performance"]`, { timeout: 240000 });
 
   const resultData = {
+    label,
     url,
     resultUrl: page.url(),
     timestamp: new Date().toISOString(),
@@ -43,7 +44,7 @@ async function runTest(url, page, resultDir) {
 
   for (const tab of ["mobile", "desktop"]) {
     await page.click(`button[id="${tab}_tab"]`);
-    await page.waitForTimeout(3000);
+    await page.waitForTimeout(13000);
 
     const currentTab = page.locator(`div[aria-labelledby="${tab}_tab"]`);
     await currentTab.waitFor({ timeout: 60000 });
@@ -101,6 +102,8 @@ async function runTest(url, page, resultDir) {
   const baseOutputDir = "results";
   await fs.ensureDir(baseOutputDir);
 
+  const label = "PageSpeed Insights" + new Date().toISOString();
+
   if (usePersistent) {
     const userDataDir = path.resolve("./user_data");
     const context = await chromium.launchPersistentContext(userDataDir, {
@@ -115,7 +118,7 @@ async function runTest(url, page, resultDir) {
       const folderName = `${nowStr()}_${sanitizeFilename(url)}`;
       const resultDir = path.join(baseOutputDir, folderName);
       await fs.ensureDir(resultDir);
-      await runTest(url, page, resultDir);
+      await runTest(url, page, resultDir, label);
     }
 
     await context.close();
@@ -135,7 +138,7 @@ async function runTest(url, page, resultDir) {
       const resultDir = path.join(baseOutputDir, folderName);
       await fs.ensureDir(resultDir);
 
-      await runTest(url, page, resultDir);
+      await runTest(url, page, resultDir, label);
 
       await context.close();
     }

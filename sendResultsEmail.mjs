@@ -47,7 +47,7 @@ export async function sendResultsEmail(resultDir) {
   const mailOptions = {
     from: `"PageSpeed Bot" <${process.env.EMAIL_FROM}>`,
     to: process.env.EMAIL_TO,
-    subject: `📊 PageSpeed Report: ${new URL(resultJson.url).hostname}`,
+    subject: `📊 PageSpeed Report: ${resultJson.label}`,
     html: htmlBody,
     attachments: [
       {

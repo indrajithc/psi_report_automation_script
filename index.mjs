@@ -1,7 +1,11 @@
-const fs = require("fs-extra");
-const path = require("path");
-const minimist = require("minimist");
-const { chromium } = require("playwright");
+// const fs = require("fs-extra");
+// const path = require("path");
+// const minimist = require("minimist");
+// const { chromium } = require("playwright");
+import fs from "fs-extra";
+import path from "path";
+import minimist from "minimist";
+import { chromium } from "playwright";
 
 // Load URLs from a file
 function loadUrlsFromFile(filepath) {

@@ -3,8 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "dev": "node ndex.mjs --use-existing-browser --executable-path /usr/bin/chromium",
-    "test": "node test.mjs"
+    "dev": "node index.mjs --use-existing-browser --executable-path /usr/bin/chromium"
   },
   "keywords": [],
   "author": "",

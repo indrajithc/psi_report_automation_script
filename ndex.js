@@ -31,7 +31,7 @@ async function runTest(url, page, resultDir) {
   await page.fill('input[placeholder="Enter a web page URL"]', url);
   await page.click('button:has-text("Analyze")');
 
-  await page.waitForSelector(`div[id="performance"]`, { timeout: 120000 });
+  await page.waitForSelector(`div[id="performance"]`, { timeout: 240000 });
 
   const resultData = {
     url,
@@ -48,6 +48,10 @@ async function runTest(url, page, resultDir) {
     await currentTab.waitFor({ timeout: 60000 });
 
     const screenshotPath = path.join(resultDir, `${tab}.png`);
+    // Scroll to top before taking screenshot
+    await page.evaluate(() => window.scrollTo(0, 0));
+    await page.waitForTimeout(1000); // wait for smooth scroll/rendering
+
     await page.screenshot({ path: screenshotPath, fullPage: true });
 
     const scoreEl = await currentTab.locator(".lh-exp-gauge__percentage");

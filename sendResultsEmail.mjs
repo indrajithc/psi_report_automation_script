@@ -44,17 +44,6 @@ export async function sendResultsEmail(resultDir) {
     },
   });
 
-  console.log({
-    to: process.env.EMAIL_TO,
-    host: process.env.EMAIL_HOST,
-    port: parseInt(process.env.EMAIL_PORT || "587"),
-    secure: false,
-    auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS,
-    },
-  });
-
   const mailOptions = {
     from: `"PageSpeed Bot" <${process.env.EMAIL_FROM}>`,
     to: process.env.EMAIL_TO,

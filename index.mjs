@@ -1,11 +1,8 @@
-// const fs = require("fs-extra");
-// const path = require("path");
-// const minimist = require("minimist");
-// const { chromium } = require("playwright");
 import fs from "fs-extra";
 import path from "path";
 import minimist from "minimist";
 import { chromium } from "playwright";
+import { sendResultsEmail } from "./sendResultsEmail.mjs";
 
 // Load URLs from a file
 function loadUrlsFromFile(filepath) {
@@ -91,6 +88,9 @@ async function runTest(url, page, resultDir) {
   await fs.writeJSON(jsonPath, resultData, { spaces: 2 });
 
   console.log(`✅ Saved results for ${url} in ${resultDir}`);
+
+  // send email here
+  await sendResultsEmail(resultDir);
 }
 
 (async () => {

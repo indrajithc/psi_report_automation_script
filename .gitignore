@@ -1,0 +1,22 @@
+# Node modules
+node_modules/
+
+# VSCode and IDE config
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Output results
+results/
+user_data/
+
+# Logs
+*.log
+
+# Environment
+.env
+
+urls.txt

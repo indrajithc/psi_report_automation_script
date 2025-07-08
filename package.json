@@ -1,0 +1,17 @@
+{
+  "name": "psi_report_automation_script",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node ndex.js --use-existing-browser --executable-path /usr/bin/chromium"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "fs-extra": "^11.3.0",
+    "minimist": "^1.2.8",
+    "playwright": "^1.53.2"
+  }
+}

@@ -35,17 +35,21 @@ async function runTest(url, page, resultDir) {
 
   const resultData = {
     url,
+    resultUrl: page.url(),
     timestamp: new Date().toISOString(),
     metrics: {},
   };
 
   for (const tab of ["mobile", "desktop"]) {
     await page.click(`button[id="${tab}_tab"]`);
-    await page.waitForTimeout(1000);
+    await page.waitForTimeout(3000);
 
-    // Use a locator for further chaining
     const currentTab = page.locator(`div[aria-labelledby="${tab}_tab"]`);
     await currentTab.waitFor({ timeout: 60000 });
+
+    await currentTab
+      .locator(`div[id="performance"]`)
+      .waitFor({ timeout: 120000 });
 
     const screenshotPath = path.join(resultDir, `${tab}.png`);
     // Scroll to top before taking screenshot

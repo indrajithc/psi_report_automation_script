@@ -107,7 +107,7 @@ async function runTest(url, page, resultDir, label) {
   if (usePersistent) {
     const userDataDir = path.resolve("./user_data");
     const context = await chromium.launchPersistentContext(userDataDir, {
-      headless: false,
+      headless: true,
       viewport: { width: 1280, height: 800 },
       executablePath,
     });
